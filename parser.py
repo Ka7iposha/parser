@@ -9,7 +9,7 @@ bs = BeautifulSoup(request.text, "html.parser")
 
 all_links = bs.find_all("a", class_="iva-item-title-py3i_")
 
-output_file = open(r"C:\Users\mastermor\Desktop\parser.txt", "w")
+output_file = open(r"C:\Users\mastermor\Desktop\parser.txt", "w", encoding='utf-8')
 for link in all_links:
     print("https://www.avito.ru" + link["href"], file=output_file)
 output_file.close()
