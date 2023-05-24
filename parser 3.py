@@ -3,7 +3,6 @@ import bs4
 import requests
 import csv
 
-
 InnerBlock = namedtuple('Block', 'title,price,currency,url')
 
 
@@ -19,6 +18,9 @@ class AvitoParser:
             "Accept": "*/*",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0)"
         }
+        self.session.proxies = {
+            'https': 'http://95.79.53.19:8080'
+        }
 
     def get_page(self, page: int = None):
         params = {
@@ -27,6 +29,7 @@ class AvitoParser:
             params['p'] = page
         url = 'https://www.avito.ru/all/bytovaya_elektronika?q=Apple'
         r = self.session.get(url, params=params)
+        print(r.status_code)
         return r.text
 
     def parse_block(self, item):
@@ -65,13 +68,12 @@ class AvitoParser:
         soup = bs4.BeautifulSoup(text, 'lxml')
 
         container = soup.select('div.iva-item-content-rejJg')
-        with open(r"C:\Users\mastermor\Desktop\parse.csv", "w", encoding='utf16', newline='') as output_file:
+        with open(r"C:\Users\mastermor\Desktop\parse.csv", "w", encoding='utf8', newline='') as output_file:
             writer = csv.writer(output_file, delimiter=';')
             writer.writerow(['title', 'price', 'currency', 'url'])
             for item in container:
                 block = self.parse_block(item=item)
                 writer.writerow(block)
-        output_file.close()
 
     def parse_all(self):
         limit = 4
@@ -82,8 +84,8 @@ class AvitoParser:
 
 def main():
     p = AvitoParser()
-    p.parse_all()
-    # p.get_blocks()
+    # p.parse_all()
+    p.get_blocks()
 
 
 if __name__ == '__main__':
