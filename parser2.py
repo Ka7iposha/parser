@@ -1,11 +1,16 @@
 import random
 import re
 import time
-import pandas
 import requests
 from bs4 import BeautifulSoup
-from pandas import ExcelWriter
 
+
+'''
+Не работающий парсер авито
+
+Парсит только одну стрницу, функция для определения количества страниц не работает
+по причине изменения строения сайта
+'''
 
 def get_html(url, params=None):
     headers = {

@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
+'''
+Простой парсер авито
 
+Парсит только ссылки на товары, на одной странице
+'''
 product = input()
 
 url = "https://www.avito.ru/vologda?q=" + product
