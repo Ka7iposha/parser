@@ -6,8 +6,12 @@ import requests
 
 '''
 Парсер Wildberries(не работает)
+
+Проблема скорее всего в функции parse_block
+Не парсит элементы сайта, но в выводе появляются какие-то ссылки(по типу https://vsemrabota.ru/appwb/),
+которые вообще не понятно откуда там берутся
 '''
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('wb')
 
 
