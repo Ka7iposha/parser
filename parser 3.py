@@ -31,6 +31,7 @@ class AvitoParser:
             'https': 'http://95.79.53.19:8080'
         }
 
+# функция для получения страницы и её параметров
     def get_page(self, page: int = None):
         params = {
         }
@@ -41,6 +42,7 @@ class AvitoParser:
         print(r.status_code)
         return r.text
 
+# функция для парсинга определённых элементов в блоке товара
     def parse_block(self, item):
         url_block = item.select_one('a', class_='styles-module-root-QmppR styles-module-root_noVisited-aFA10')
         href = url_block.get('href')
@@ -72,6 +74,7 @@ class AvitoParser:
             currency=currency,
         )
 
+# функция для получения целого блока и запись в csv-файл
     def get_blocks(self, page: int = None):
         text = self.get_page(page=page)
         soup = bs4.BeautifulSoup(text, 'lxml')
@@ -84,6 +87,7 @@ class AvitoParser:
                 block = self.parse_block(item=item)
                 writer.writerow(block)
 
+# функция определющая количество страниц
     def parse_all(self):
         limit = 4
         print(f'Всего страниц: {limit}')
