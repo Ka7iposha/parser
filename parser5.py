@@ -121,7 +121,7 @@ def save_excel(data, filename):
     writer = pd.ExcelWriter(f'{filename}.xlsx')
     df.to_excel(writer, 'data')
     writer.close()
-    print(f'Все сохранено в {filename}.xlsx')
+    logger.info(f'Все сохранено в {filename}.xlsx')
 
 
 def parser(url, low_price, top_price):
@@ -135,9 +135,9 @@ def parser(url, low_price, top_price):
         # сохранение найденных данных
         save_excel(data_list, f'{name_category}_from_{low_price}_to_{top_price}')
     except TypeError:
-        print('Ошибка! Возможно не верно указан раздел. Удалите все доп фильтры с ссылки')
+        logger.info('Ошибка! Возможно не верно указан раздел. Удалите все доп фильтры с ссылки')
     except PermissionError:
-        print('Ошибка! Вы забыли закрыть созданный ранее excel файл. Закройте и повторите попытку')
+        logger.info('Ошибка! Вы забыли закрыть созданный ранее excel файл. Закройте и повторите попытку')
 
 
 if __name__ == '__main__':
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     # low_price = int(input('Введите минимальную сумму товара: '))
     # top_price = int(input('Введите максимульную сумму товара: '))
 
-    """данные для теста. собераем товар с раздела велосипеды в ценовой категории от 50тыс, до 100тыс"""
+    """данные для теста. собираем товар с раздела велосипеды в ценовой категории от 50тыс, до 100тыс"""
     url = 'https://www.wildberries.ru/catalog/sport/vidy-sporta/velosport/velosipedy'
     # url = 'https://www.wildberries.ru/catalog/elektronika/noutbuki-pereferiya/periferiynye-ustroystva/mfu'
     # url = 'https://www.wildberries.ru/catalog/dlya-doma/predmety-interera/dekorativnye-nakleyki'
